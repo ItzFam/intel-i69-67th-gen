@@ -1,7 +1,0 @@
-*.exe
-*.o
-*.out
-.vscode/
-build/
-Debug/
-Release/
