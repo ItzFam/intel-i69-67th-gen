@@ -52,6 +52,14 @@ void CPU::decode() // Decodes instruction.
     {
         operation = "STO";
     }
+    else if (instruction / 100 == 7)
+    {
+        operation = "BRA";
+    }
+    else if (instruction / 100 == 8)
+    {
+        operation = "BRZ";
+    }
 
     if (instruction / 100 != 9)
         memory_address = instruction % 100;
@@ -73,7 +81,7 @@ void CPU::execute() // Executes the instruction.
     else if (operation == "OUTPUT")
     {
         std::cout << "Output: \n"
-                  << accumulator;
+                  << accumulator << std::endl;
 
         programCounter++;
     }
@@ -101,6 +109,17 @@ void CPU::execute() // Executes the instruction.
 
         programCounter++;
     }
+    else if (operation == "BRA")
+    {
+        programCounter = memory_address;
+    }
+    else if (operation == "BRZ")
+    {
+        if (accumulator == 0)
+        {
+            programCounter = memory_address;
+        }
+    }
 }
 
 void CPU::run()
@@ -117,17 +136,14 @@ int main()
 {
     CPU cpu;
 
-    cpu.memory[0] = 901;
-    cpu.memory[1] = 113;
-    cpu.memory[2] = 550;
-    cpu.memory[3] = 113;
-    cpu.memory[4] = 614;
-    cpu.memory[13] = 46;
-    cpu.memory[50] = 10;
+    cpu.memory[0] = 901; // Input 520
+    cpu.memory[1] = 713;
+    cpu.memory[13] = 605;
+    cpu.memory[14] = 705;
+    cpu.memory[6] = 878;
+    cpu.memory[78] = 902;
 
     cpu.run();
-
-    std::cout << cpu.memory[14];
 
     return 0;
 }
