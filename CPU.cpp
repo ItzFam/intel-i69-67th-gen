@@ -60,6 +60,10 @@ void CPU::decode() // Decodes instruction.
     {
         operation = "BRZ";
     }
+    else
+    {
+        operation = "INVALID";
+    }
 
     if (instruction / 100 != 9)
         memory_address = instruction % 100;
@@ -123,6 +127,11 @@ void CPU::execute() // Executes the instruction.
         {
             programCounter++;
         }
+    }
+    else if (operation == "INVALID")
+    {
+        std::cout << "Invalid instruction.";
+        running = false;
     }
 }
 
