@@ -40,6 +40,10 @@ void CPU::decode() // Decodes instruction.
     {
         operation = "ADD";
     }
+    else if (instruction / 100 == 2)
+    {
+        operation = "SUB";
+    }
     else if (instruction / 100 == 5)
     {
         operation = "LDA";
@@ -55,8 +59,6 @@ void CPU::decode() // Decodes instruction.
 
 void CPU::execute() // Executes the instruction.
 {
-    int data;
-
     if (operation == "HALT")
     {
         running = false;
@@ -77,9 +79,13 @@ void CPU::execute() // Executes the instruction.
     }
     else if (operation == "ADD")
     {
-        data = memory[memory_address];
+        accumulator += memory[memory_address];
 
-        accumulator += data;
+        programCounter++;
+    }
+    else if (operation == "SUB")
+    {
+        accumulator -= memory[memory_address];
 
         programCounter++;
     }
