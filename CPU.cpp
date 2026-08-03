@@ -1,5 +1,18 @@
 #include <iostream>
-#include <string>
+
+enum class Opcode
+{
+    INVALID = -1,
+    HALT = 0,
+    ADD = 1,
+    SUB = 2,
+    LDA = 5,
+    STO = 6,
+    BRA = 7,
+    BRZ = 8,
+    INPUT = 901,
+    OUTPUT = 902
+};
 
 class CPU
 {
@@ -10,7 +23,7 @@ public:
 
     bool running = true;
 
-    std::string operation;
+    Opcode operation;
 
     // Useful Functions (No I am not going to explain them here)
     void run(), fetch(), decode(), execute();
@@ -26,43 +39,43 @@ void CPU::decode() // Decodes instruction.
 
     if (instruction == 0)
     {
-        operation = "HALT";
+        operation = Opcode::HALT;
     }
     else if (instruction == 901)
     {
-        operation = "INPUT";
+        operation = Opcode::INPUT;
     }
     else if (instruction == 902)
     {
-        operation = "OUTPUT";
+        operation = Opcode::OUTPUT;
     }
     else if (instruction / 100 == 1)
     {
-        operation = "ADD";
+        operation = Opcode::ADD;
     }
     else if (instruction / 100 == 2)
     {
-        operation = "SUB";
+        operation = Opcode::SUB;
     }
     else if (instruction / 100 == 5)
     {
-        operation = "LDA";
+        operation = Opcode::LDA;
     }
     else if (instruction / 100 == 6)
     {
-        operation = "STO";
+        operation = Opcode::STO;
     }
     else if (instruction / 100 == 7)
     {
-        operation = "BRA";
+        operation = Opcode::BRA;
     }
     else if (instruction / 100 == 8)
     {
-        operation = "BRZ";
+        operation = Opcode::BRZ;
     }
     else
     {
-        operation = "INVALID";
+        operation = Opcode::INVALID;
     }
 
     if (instruction / 100 != 9)
@@ -71,53 +84,53 @@ void CPU::decode() // Decodes instruction.
 
 void CPU::execute() // Executes the instruction.
 {
-    if (operation == "HALT")
+    if (operation == Opcode::HALT)
     {
         running = false;
     }
-    else if (operation == "INPUT")
+    else if (operation == Opcode::INPUT)
     {
         std::cout << "Input: ";
         std::cin >> accumulator;
 
         programCounter++;
     }
-    else if (operation == "OUTPUT")
+    else if (operation == Opcode::OUTPUT)
     {
         std::cout << "Output: \n"
                   << accumulator << std::endl;
 
         programCounter++;
     }
-    else if (operation == "ADD")
+    else if (operation == Opcode::ADD)
     {
         accumulator += memory[memory_address];
 
         programCounter++;
     }
-    else if (operation == "SUB")
+    else if (operation == Opcode::SUB)
     {
         accumulator -= memory[memory_address];
 
         programCounter++;
     }
-    else if (operation == "LDA")
+    else if (operation == Opcode::LDA)
     {
         accumulator = memory[memory_address];
 
         programCounter++;
     }
-    else if (operation == "STO")
+    else if (operation == Opcode::STO)
     {
         memory[memory_address] = accumulator;
 
         programCounter++;
     }
-    else if (operation == "BRA")
+    else if (operation == Opcode::BRA)
     {
         programCounter = memory_address;
     }
-    else if (operation == "BRZ")
+    else if (operation == Opcode::BRZ)
     {
         if (accumulator == 0)
         {
@@ -128,7 +141,7 @@ void CPU::execute() // Executes the instruction.
             programCounter++;
         }
     }
-    else if (operation == "INVALID")
+    else if (operation == Opcode::INVALID)
     {
         std::cout << "Invalid instruction.";
         running = false;
