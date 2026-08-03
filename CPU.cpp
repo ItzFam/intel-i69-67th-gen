@@ -119,6 +119,10 @@ void CPU::execute() // Executes the instruction.
         {
             programCounter = memory_address;
         }
+        else
+        {
+            programCounter++;
+        }
     }
 }
 
