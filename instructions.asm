@@ -1,0 +1,6 @@
+INP
+STO 34
+INP
+ADD 34
+OUT
+HLT

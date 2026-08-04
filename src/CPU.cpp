@@ -1,5 +1,6 @@
 #include <iostream>
-#include "D:\Pointers\headers\CPU.h"
+#include "..\headers\CPU.h"
+#include "..\headers\Assembler.h"
 
 void CPU::fetch() // Retrieves the instruction in the memory.
 {
@@ -8,18 +9,17 @@ void CPU::fetch() // Retrieves the instruction in the memory.
 
 void CPU::decode() // Decodes instruction.
 {
-
     if (instruction == 0)
     {
-        operation = Opcode::HALT;
+        operation = Opcode::HLT;
     }
     else if (instruction == 901)
     {
-        operation = Opcode::INPUT;
+        operation = Opcode::INP;
     }
     else if (instruction == 902)
     {
-        operation = Opcode::OUTPUT;
+        operation = Opcode::OUT;
     }
     else if (instruction / 100 == 1)
     {
@@ -47,7 +47,7 @@ void CPU::decode() // Decodes instruction.
     }
     else
     {
-        operation = Opcode::INVALID;
+        operation = Opcode::INV;
     }
 
     if (instruction / 100 != 9)
@@ -56,18 +56,18 @@ void CPU::decode() // Decodes instruction.
 
 void CPU::execute() // Executes the instruction.
 {
-    if (operation == Opcode::HALT)
+    if (operation == Opcode::HLT)
     {
         running = false;
     }
-    else if (operation == Opcode::INPUT)
+    else if (operation == Opcode::INP)
     {
         std::cout << "Input: ";
         std::cin >> accumulator;
 
         programCounter++;
     }
-    else if (operation == Opcode::OUTPUT)
+    else if (operation == Opcode::OUT)
     {
         std::cout << "Output: \n"
                   << accumulator << std::endl;
@@ -113,7 +113,7 @@ void CPU::execute() // Executes the instruction.
             programCounter++;
         }
     }
-    else if (operation == Opcode::INVALID)
+    else if (operation == Opcode::INV)
     {
         std::cout << "Invalid instruction.";
         running = false;
@@ -122,10 +122,24 @@ void CPU::execute() // Executes the instruction.
 
 void CPU::run()
 {
+    addToMemory();
+
     while (running)
     {
         fetch();
         decode();
         execute();
+    }
+}
+
+void CPU::addToMemory()
+{
+    Assembler con;
+
+    con.retrieve();
+
+    for (size_t i = 0; i < con.machineCode.size(); i++)
+    {
+        memory[i] = con.machineCode[i];
     }
 }

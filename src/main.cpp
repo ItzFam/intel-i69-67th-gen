@@ -1,5 +1,5 @@
 #include <iostream>
-#include "D:\Pointers\headers\CPU.h"
+#include "..\headers\CPU.h"
 
 int main()
 {

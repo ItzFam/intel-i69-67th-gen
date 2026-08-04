@@ -13,5 +13,5 @@ public:
     Opcode operation;
 
     // Useful Functions (No I am not going to explain them here)
-    void run(), fetch(), decode(), execute();
+    void run(), fetch(), decode(), execute(), addToMemory();
 };
