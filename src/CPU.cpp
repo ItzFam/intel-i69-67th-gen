@@ -1,6 +1,5 @@
 #include <iostream>
 #include "..\headers\CPU.h"
-#include "..\headers\Assembler.h"
 
 void CPU::fetch() // Retrieves the instruction in the memory.
 {
@@ -122,8 +121,6 @@ void CPU::execute() // Executes the instruction.
 
 void CPU::run()
 {
-    addToMemory();
-
     while (running)
     {
         fetch();
@@ -132,14 +129,10 @@ void CPU::run()
     }
 }
 
-void CPU::addToMemory()
+void CPU::addToMemory(std::vector<int> mCode)
 {
-    Assembler con;
-
-    con.retrieve();
-
-    for (size_t i = 0; i < con.machineCode.size(); i++)
+    for (size_t i = 0; i < mCode.size(); i++)
     {
-        memory[i] = con.machineCode[i];
+        memory[i] = mCode[i];
     }
 }

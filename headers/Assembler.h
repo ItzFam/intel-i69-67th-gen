@@ -22,7 +22,7 @@ public:
     int address;
 
     // Useful Functions (You know what I am going to say.)
-    void retrieve(), convert(), addToMemory();
+    void retrieve(), convert();
     Opcode decodeCode(std::string);
     int decodeAddress(std::string);
 };
