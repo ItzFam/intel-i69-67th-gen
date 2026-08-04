@@ -1,33 +1,5 @@
 #include <iostream>
-
-enum class Opcode
-{
-    INVALID = -1,
-    HALT = 0,
-    ADD = 1,
-    SUB = 2,
-    LDA = 5,
-    STO = 6,
-    BRA = 7,
-    BRZ = 8,
-    INPUT = 901,
-    OUTPUT = 902
-};
-
-class CPU
-{
-public:
-    // Uh dont know what to call it but I guess the boxes that you saw in LMC.
-    int registers[4], memory[256] = {0}, programCounter = 0, instruction,
-                      accumulator = 0, memory_address;
-
-    bool running = true;
-
-    Opcode operation;
-
-    // Useful Functions (No I am not going to explain them here)
-    void run(), fetch(), decode(), execute();
-};
+#include "D:\Pointers\headers\CPU.h"
 
 void CPU::fetch() // Retrieves the instruction in the memory.
 {
@@ -156,20 +128,4 @@ void CPU::run()
         decode();
         execute();
     }
-}
-
-int main()
-{
-    CPU cpu;
-
-    cpu.memory[0] = 901; // Input 520
-    cpu.memory[1] = 713;
-    cpu.memory[13] = 605;
-    cpu.memory[14] = 705;
-    cpu.memory[6] = 878;
-    cpu.memory[78] = 902;
-
-    cpu.run();
-
-    return 0;
 }
