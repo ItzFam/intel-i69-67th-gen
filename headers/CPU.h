@@ -6,8 +6,9 @@ class CPU
 {
 public:
     // Uh dont know what to call it but I guess the boxes that you saw in LMC.
-    int registers[4], memory[256] = {0}, programCounter = 0, instruction,
-                      accumulator = 0, memory_address;
+    int registers[4], programCounter = 0, instruction, memory_address;
+
+    long long memory[256] = {0}, accumulator = 0;
 
     bool running = true;
 

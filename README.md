@@ -10,6 +10,7 @@ The best CPU you've ever seen. (It can run a calculator at best)
 - Arithmetic instructions
 - Branch instructions
 - Input/Output
+- Scuffed Ah Assembler.
 
 ## Instruction Set
 
@@ -22,5 +23,3 @@ The best CPU you've ever seen. (It can run a calculator at best)
 8xx - BRZ
 901 - INPUT
 902 - OUTPUT
-
-Side note: No actual assembler yet so wait for the programming update ig.
